@@ -6,7 +6,7 @@
 The set of 17 SDGs is considered one of the most effective frameworks for translating GCs into manageable targets for each country. Despite this comprehensive vision, **there are certain conditions marked by a socioeconomic-environmental model and by the situation of the countries, which cause progress towards the achievement of some SDGs without achieving others**.
 
 ### 1.3 Objective
- **The objective of this project is to study the relationship of the SDGs with climate change and energy transition**.
+ **The objective of this project is to study the relationship of the SDGs with climate change and energy transition**. Thus, this study sheds light on potential **synergies, trade-offs, and linkages** between the **climate change and energy transition** and the **Sustainable Development Goals (SDGs)**. 
 
 ### 1.4 Datasets and alternative data sources
 We focus the analysis on data from **137 countries** worldwide for the years **2017, 2018, 2019 and 2020**, on which we will mainly analyse the **17 SDGs** in their relationship with **climate change and energy transition (9,384 observations)**. Which data is used:
@@ -14,6 +14,9 @@ We focus the analysis on data from **137 countries** worldwide for the years **2
 * A ranking of these 137 countries produced by the **[17 SDGs of the 2020 Sustainable Development Report](https://unstats.un.org/sdgs/dataportal)** *(Sachs et al., 2020)*.
 * According to the **International Energy Agency**, renewable energy contributes 80% to climate change and the energy transition. Therefore, investment in renewable energy (RE) in greenfield projects is used as the study variable, in particular, we use **renewable non-hydroelectric generation per capita in units of kWh/capita as a proxy**. This measure is widely used in the literature *(Baldwin, Carley, Brass, & MacLean, 2016; Carley, 2009; Romano & Scandurra, 2014; Romano, Scandurra, Carfora, & Fodor, 2017)*. Data comes from the database of the **[International Energy Agency](https://www.iea.org/data-and-statistics)**.
 * Three **qualitative variables: country, region, and country level of development** as defined by the **[World Bank's World Development Indicators (WDI) database](https://databank.bancomundial.org/source/world-development-indicators)**.
+
+### 1.5 Project presentation
+A project presentation (see file *"Presentation.pptx"*) is provided in the root directory.
 
 # 2.- Machine Learning Workflow
 ### 2.1 Definition of the Problem
@@ -68,7 +71,17 @@ Different regression, classification, variable reduction, and clustering models 
 7. **Metrics for classification**: Accuracy is used in classification algorithms since data is balanced. The coefficient of determination for the prediction (score) is analysed. The minimization of the **Mean Squared Error (MSE)** is sought, as there were not many outliers (5) that could suggest the use of the Mean Absolute Error (MAE).
 8. **Regularization**: **GridSearchCV** is used, combined with a massive hyperparameter evaluation with loops, to facilitate the evaluation of metrics and regularization.
 
-#### 2.4.1 REGRESSION
+#### 2.4.1 CLASSIFICATION
+
+**Pipeline PCA k-Nearest Neighbours Classification model**
+* Train Split 2021 Accuracy: 0.88
+* Test Split 2021 Accuracy: 0.82
+Only 80% of the year 2021 was used to train. It generalizes in an appropriate manner with the remaining years:
+* Test 2017 Accuracy: 0.77
+* Test 2018 Accuracy: 0.77
+* Test 2020 Accuracy: 0.77
+
+#### 2.4.2 REGRESSION
 
 **Pipeline PCA RandomForest Regression model**
 * Train Split 2021 Coefficient of Determination: 0.83
@@ -95,26 +108,15 @@ Only 80% of the year 2021 was used to train. It generalizes in an appropriate ma
 * Test 2018:  Coefficient of Determination: 0.16
 * Test 2020  Coefficient of Determination: 0.22
 
+The code for these models is provided in the root directory, the rest are left in the ./notebooks directory.
 
-#### 2.4.2 CLASSIFICATION
-
-**Pipeline PCA k-Nearest Neighbours Classification model**
-* Train Split 2021 Accuracy: 0.88
-* Test Split 2021 Accuracy: 0.82
-Only 80% of the year 2021 was used to train. It generalizes in an appropriate manner with the remaining years:
-* Test 2017 Accuracy: 0.77
-* Test 2018 Accuracy: 0.77
-* Test 2020 Accuracy: 0.77
-
-The code for these models is provided in the src directory, the rest are left in the src/notebooks directory.
-
-The main models have been dumped in the src/model directory. For each of them, three files have been generated with the same format as those generated previously, that is:
+The main models have been dumped in the ./model directory. For each of them, three files have been generated with the same format as those generated previously, that is:
 
         <modelname>: the model dumped by pickle
         <modelname>.json: a JSON with the description (according to the previous delivery).
         <modelname>.csv: contains the test data for the independent and dependent variables.
 
-In the src/model directory, my_model is left (with its respective three files). This is the model chosen for the Pipeline with StandardScaler, PCA, and DecisionTree Regression. A src/train.py file is left that trains this model.
+In the ./model directory, my_model is left (with its respective three files). This is the model chosen for the Pipeline with StandardScaler, PCA, and DecisionTree Regression. A ./train.py file is left that trains this model.
 
 ### 2.5 MODELS USED FOR SEGMENTATION
 
